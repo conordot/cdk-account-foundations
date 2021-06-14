@@ -16,7 +16,7 @@ from cdk_enc.cdk_enc_vpc_stack import CdkEncVpcStack
 app = core.App()
 
 # VPC
-CdkEncStack(app, "CdkEncVpcStack",
+CdkEncVpcStack(app, "CdkEncVpcStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.

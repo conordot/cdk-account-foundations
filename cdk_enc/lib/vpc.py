@@ -1,4 +1,4 @@
-import aws_cdk.ec2 as ec2
+import aws_cdk.aws_ec2 as ec2
 
 class Vpc:
     def __init__(self, *kwargs):
