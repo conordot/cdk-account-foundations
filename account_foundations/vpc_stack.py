@@ -8,7 +8,6 @@ class VpcStack(cdk.Stack):
 
     def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-
         subnets = [
             {
                 "name": "public-cdk",
@@ -21,6 +20,4 @@ class VpcStack(cdk.Stack):
                 "type": "private"
             }
         ]
-
         vpc = VpcModule(self, "VpcModule", cidr="10.1.0.0/16", vpc_name="test-vpc-cdk", subnets=subnets)
-        

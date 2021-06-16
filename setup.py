@@ -6,7 +6,7 @@ with open("README.md") as fp:
 
 
 setuptools.setup(
-    name="cdk_enc",
+    name="accont",
     version="0.0.1",
 
     description="An empty CDK Python app",
@@ -15,8 +15,8 @@ setuptools.setup(
 
     author="author",
 
-    package_dir={"": "cdk_enc"},
-    packages=setuptools.find_packages(where="cdk_enc"),
+    package_dir={"": "account_foundations"},
+    packages=setuptools.find_packages(where="account_foundations"),
 
     install_requires=[
         "aws-cdk.core==1.108.0",
