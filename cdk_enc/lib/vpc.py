@@ -1,18 +1,30 @@
-import aws_cdk.aws_ec2 as ec2
+from aws_cdk import (
+    core,
+    aws_ec2 as ec2
+)
 
-class Vpc:
-    def __init__(self, *kwargs):
-        self.setup_vpc(kwargs.cidr.get("cidr", "10.0.0.0/16"))
-        self.subnets = []
+class VpcModule(core.Construct):
+    def __init__(self, scope: core.Construct, id: str, *, cidr: str, vpc_name: str, subnets: list):
+        super().__init__(scope, id)
+        self._setup_vpc(cidr, vpc_name, subnets)
 
-    def setup_vpc(self, *kwargs):
-        cidr = kwargs.get("cidr")
-        self.vpc = ec2.Vpc(self, kwargs.vpc_name,
-            cidr=cidr
+    def _setup_vpc(self, cidr, vpc_name, subnets):
+        subnet_conf = []
+        for subnet in subnets:
+            if subnet["type"] == "public":
+                subnet_type = ec2.SubnetType.PUBLIC
+            elif subnet["type"] == "restricted":
+                subnet_type = ec2.SubnetType.ISOLATED
+            else:
+                subnet_type = ec2.SubnetType.PRIVATE
+            subnet_conf.append(
+                {
+                   "cidrMask": subnet['cidr'] ,
+                   "name": subnet['name'],
+                   "subnetType": subnet_type
+                }
+            )
+        self.vpc = ec2.Vpc(self, vpc_name,
+            cidr=cidr,
+            subnet_configuration=subnet_conf
         )
-
-    def add_subnet(self, *kwargs):
-        az = kwargs.get("az", "ap-southeast-a")
-        cidr = kwargs.get("cidr", "10.0.0.0/16")
-        subnet = ec2.Subnet(self, kwargs.subnet_id, az, cidr, self.vpc.vpc_id)
-        self.subnets.append(subnet)
