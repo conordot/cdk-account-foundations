@@ -1,0 +1,10 @@
+vpc:
+  name: "test-vpc-cdk"
+  cidr: "10.1.0.0/16"
+  subnets:
+    - name: "public-cdk"
+      cidr: 24
+      type: "public"
+    - name: "private-cdk"
+      cidr: 24
+      type: "private"

@@ -1,7 +1,7 @@
 from aws_cdk import core as cdk
 from aws_cdk import core
 from aws_cdk import aws_ec2 as ec2
-from lib.vpc import VpcModule
+from account_foundations.lib.vpc import VpcModule as VpcModule
 
 
 class VpcStack(cdk.Stack):

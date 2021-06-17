@@ -13,7 +13,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
 
-    author="author",
+    author="Conor Sinclair",
 
     package_dir={"": "account_foundations"},
     packages=setuptools.find_packages(where="account_foundations"),

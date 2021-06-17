@@ -2,3 +2,4 @@ aws-cdk.aws-s3
 aws-cdk.aws-lambda
 aws-cdk.aws-ec2
 aws-cdk.core
+pyyaml

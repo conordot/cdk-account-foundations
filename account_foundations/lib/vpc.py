@@ -26,5 +26,9 @@ class VpcModule(core.Construct):
             )
         self.vpc = ec2.Vpc(self, vpc_name,
             cidr=cidr,
-            subnet_configuration=subnet_conf
+            subnet_configuration=subnet_conf,
+            enable_dns_hostnames=False,
+            nat_gateways=None,
+            vpn_gateway=False,
+            max_azs=1
         )
