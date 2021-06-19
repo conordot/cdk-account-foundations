@@ -3,7 +3,7 @@ from aws_cdk import (
     aws_ec2 as ec2
 )
 
-class VpcModule(core.Construct):
+class NetworkingModule(core.Construct):
     def __init__(self, scope: core.Construct, id: str, *, cidr: str, vpc_name: str, subnets: list):
         super().__init__(scope, id)
         self._setup_vpc(cidr, vpc_name, subnets)

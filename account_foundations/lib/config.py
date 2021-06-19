@@ -1,4 +1,4 @@
-from yaml import load
+from yaml import load, FullLoader
 
 
 class Config:
@@ -8,5 +8,5 @@ class Config:
         with open(path, "r") as f:
             config_content = f.read()
 
-        config_yaml = load(config_content, Loader=yaml.FullLoader))
+        config_yaml = load(config_content, Loader=FullLoader)
         return config_yaml
