@@ -8,5 +8,5 @@ class Config:
         with open(path, "r") as f:
             config_content = f.read()
 
-        config_yaml = load(config_content)
+        config_yaml = load(config_content, Loader=yaml.FullLoader))
         return config_yaml
