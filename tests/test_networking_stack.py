@@ -1,12 +1,11 @@
 import pytest
 import os
 import json
-# from aws_cdk import core as cdk
 from aws_cdk import core
 from account_foundations.networking_stack import NetworkingStack
 
-
-def test_networking_stack():
+@pytest.fixture
+def setup_networking_stack():
     app = core.App()
     subnets = [
             {
@@ -25,15 +24,42 @@ def test_networking_stack():
     template_path = f'{app.outdir}/{networking_stack.template_file}'
     with open(template_path, 'r') as template_file:
         template_object = json.load(template_file)
-        print(template_object)
-    assert False == True
-    # check_function(template_object)
-    # check_log_group(template_object)
-    # check_p5_alarm(template_object)
-    # check_p3_alarm(template_object)
+    return template_object
 
-def check_private_subnet():
-    """ """
+def test_vpc(setup_networking_stack):
+    template = setup_networking_stack['Resources']
+    vpc = _get_resource_by_prefix(template, "NetworkingModuletestvpccdk")
+    assert vpc["Properties"]["CidrBlock"] == "10.1.0.0/16"
 
-def check_public_subnet():
-    """ """
+def test_private_subnet(setup_networking_stack):
+    template = setup_networking_stack['Resources']
+    private_subnet = _get_resource_by_prefix(template, "privatecdk")
+    tags_to_check = [
+        {
+            "key": "aws-cdk:subnet-type",
+            "expected_value": "Private"
+        }
+    ]
+    _check_resource_tags(private_subnet, tags_to_check)
+
+def test_public_subnet(setup_networking_stack):
+    template = setup_networking_stack['Resources']
+    public_subnet = _get_resource_by_prefix(template, "publiccdk")
+    tags_to_check = [
+        {
+            "key": "aws-cdk:subnet-type",
+            "expected_value": "Public"
+        }
+    ]
+    _check_resource_tags(public_subnet, tags_to_check)
+
+def _get_resource_by_prefix(content, prefix: str) -> dict:
+    for key in content:
+        if prefix in key:
+            return content[key]
+
+def _check_resource_tags(subnet, tags_to_check):
+    for tag in subnet['Properties']['Tags']:
+        for tag_check in tags_to_check:
+            if tag["Key"] == tag_check["key"]:
+                assert tag["Value"] == tag_check["expected_value"]
