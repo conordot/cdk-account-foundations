@@ -7,7 +7,6 @@ from account_foundations.networking_stack import NetworkingStack
 from account_foundations.lib.config import Config
 
 config_yaml = Config.load_config(os.path.abspath("account_foundations/config/all.yaml"))
-print(config_yaml)
 
 app = core.App()
 
