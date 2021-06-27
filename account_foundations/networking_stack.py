@@ -2,9 +2,6 @@
 using CDK constructs."""
 from aws_cdk import core as cdk
 from account_foundations.lib.networking import NetworkingModule
-# from account_foundations.lib.logger import Logger
-
-# LOGGER = Logger()
 
 
 class NetworkingStack(cdk.Stack):

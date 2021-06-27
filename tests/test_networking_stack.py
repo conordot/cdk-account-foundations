@@ -1,6 +1,6 @@
-import pytest
-import os
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring,too-few-public-methods,inconsistent-return-statements,redefined-outer-name
 import json
+import pytest
 from aws_cdk import core
 from account_foundations.networking_stack import NetworkingStack
 
@@ -19,7 +19,14 @@ def setup_networking_stack():
                 "type": "private"
             }
         ]
-    networking_stack = NetworkingStack(app, "NetworkingModule", env="test", subnets=subnets, vpc_name="test-vpc-cdk", cidr="10.1.0.0/16")
+    networking_stack = NetworkingStack(
+        app,
+        "NetworkingModule",
+        env="test",
+        subnets=subnets,
+        vpc_name="test-vpc-cdk",
+        cidr="10.1.0.0/16"
+    )
     app.synth()
     template_path = f'{app.outdir}/{networking_stack.template_file}'
     with open(template_path, 'r') as template_file:
@@ -57,6 +64,7 @@ def _get_resource_by_prefix(content, prefix: str) -> dict:
     for key in content:
         if prefix in key:
             return content[key]
+    return
 
 def _check_resource_tags(subnet, tags_to_check):
     for tag in subnet['Properties']['Tags']:
