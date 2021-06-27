@@ -1,11 +1,16 @@
+"""Sets up networking components in the target AWS account via the
+    NetworkingModule CDK construct."""
 from aws_cdk import (
     core,
     aws_ec2 as ec2
 )
 
 class NetworkingModule(core.Construct):
-    def __init__(self, scope: core.Construct, id: str, *, cidr: str, vpc_name: str, subnets: list):
-        super().__init__(scope, id)
+    """CDK construct to set up networking components in the target AWS account.
+    Generic implementation that uses YAML config."""
+    def __init__(self, scope: core.Construct, construct_id: str, *,
+        cidr: str, vpc_name: str, subnets: list):
+        super().__init__(scope, construct_id)
         self._setup_vpc(cidr, vpc_name, subnets)
 
     def _setup_vpc(self, cidr, vpc_name, subnets):

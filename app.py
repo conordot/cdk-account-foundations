@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=too-few-public-methods
 import os
-from aws_cdk import core as cdk
 from aws_cdk import core
 
 from account_foundations.networking_stack import NetworkingStack
